@@ -7,7 +7,6 @@
   "description": "Enrollment form for national identity",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/dryiceenrollment.bna",
-    "pretest": "npm run lint",
     "test": "nyc mocha -t 0 test/*.js && cucumber-js"
   },
   "keywords": [
