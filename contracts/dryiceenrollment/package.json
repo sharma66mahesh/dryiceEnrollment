@@ -6,8 +6,7 @@
   "version": "0.0.1",
   "description": "Enrollment form for national identity",
   "scripts": {
-    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/dryiceenrollment.bna",
-    "test": "nyc mocha -t 0 test/*.js && cucumber-js"
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/dryiceenrollment.bna"
   },
   "keywords": [
     "composer",
