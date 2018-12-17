@@ -1,0 +1,75 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+rule EverybodyCanReadEverything {
+    description: "Allow all participants read access to all resources"
+    participant: "org.dryice.division.*"
+    operation: READ
+    resource: "org.dryice.division.*"
+    action: ALLOW
+}
+
+rule ManagerHasFullAccessToProvinceAsset {
+    description: "Allow Manager full access to Province asset"
+    participant: "org.dryice.division.Manager"
+    operation: ALL
+    resource: "org.dryice.division.Province"
+    action: ALLOW
+}
+rule ManagerHasFullAccessToDistrictAsset {
+    description: "Allow Manager full access to District asset"
+    participant(p): "org.dryice.division.Manager"
+    operation: ALL
+    resource(r): "org.dryice.division.District"
+  	condition: (r.province.name != null )
+    action: ALLOW
+}
+rule ManagerHasFullAccessToCityAsset {
+    description: "Allow Manager full access to City asset"
+    participant(p): "org.dryice.division.Manager"
+    operation: ALL
+    resource(r): "org.dryice.division.City"
+  	condition: (r.province.getIdentifier() == r.district.province.getIdentifier() && r.district.name != null)
+    action: ALLOW
+}
+rule UserHasFullAccessToUserForm {
+    description: "Allow User full access to their UserForm"
+    participant: "org.dryice.division.Manager"
+    operation: ALL
+    resource: "org.dryice.division.Province"
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

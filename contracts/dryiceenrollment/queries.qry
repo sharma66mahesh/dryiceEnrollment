@@ -1,0 +1,40 @@
+/**
+ * New query file
+ */
+query selectAllProvince{
+    description: "Select all Province"
+    statement:
+        SELECT org.dryice.division.Province
+           
+}
+
+
+query selectAllDistrict{
+    description: "Select all District"
+    statement:
+        SELECT org.dryice.division.District
+           
+}
+
+
+query selectAllCity{
+    description: "Select all City"
+    statement:
+        SELECT org.dryice.division.City
+           
+}
+
+
+query selectDistrictByProvince{
+    description: "Select all District By their respective Province"
+    statement:
+        SELECT org.dryice.division.District
+            WHERE (province==_$id)
+}
+
+query selectCityByDistrict{
+    description: "Select all City By their respective District"
+    statement:
+        SELECT org.dryice.division.City
+            WHERE (district==_$id)
+}
